@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network security configuration for Toru Android UI.
+
+    Allows cleartext (plain HTTP) traffic to local / private-network
+    addresses so the app can reach the Toru API server on the same
+    LAN or via Android emulator loopback (10.0.2.2).
+
+    ⚠ For production builds, replace the Toru API endpoint with an
+      HTTPS URL and remove or restrict this file.
+-->
+<network-security-config>
+    <!-- Trust the system CA store for all public HTTPS traffic -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!--
+        Allow cleartext for local development hosts only.
+        Replace the IP addresses below with your actual Toru server's LAN IP.
+        Add or remove entries as needed for your network environment.
+    -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Android emulator loopback to host machine -->
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <!-- Example LAN IP — replace with your actual server IP -->
+        <domain includeSubdomains="false">192.168.1.100</domain>
+        <domain includeSubdomains="false">localhost</domain>
+    </domain-config>
+</network-security-config>
